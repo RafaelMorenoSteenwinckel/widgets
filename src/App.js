@@ -1,25 +1,73 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Accordion from './components/Accordion';
+import Dropdown from './components/Dropdown';
+import Header from './components/Header';
+import Route from './components/Route';
+import Search from './components/Search';
+import Translator from './components/Translator';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const items = [
+    {
+        title: 'Hus1',
+        content: 'My first content'
+    },
+    {
+        title: 'Hus2',
+        content: 'My second content'
+    },
+    {
+        title: 'Hus3',
+        content: 'My third content'
+    }
+];
+
+const options = [
+    {
+        label : 'La couleur rouge',
+        value :  'red'
+    },
+    {
+        label : 'La couleur verte',
+        value :  'green'
+    },
+    {
+        label : 'La couleur bleue',
+        value :  'blue'
+    }
+]
+
+const App = () => {
+
+    const [selected, setSelected] = useState(options[0]);
+
+    return (
+        <React.Fragment>
+
+                <Header/>
+
+                <Route path='/'>
+                    <Accordion items={items}/>
+                </Route>
+
+                <Route path='/list'>
+                    <Search items={items}/>
+                </Route>
+
+                <Route path='/translate'>
+                    <Translator />
+                </Route>
+
+                <Route path='/dropdown'>
+                    <Dropdown 
+                        text="Choisir une couleur"
+                        options={options}
+                        selected={selected}
+                        onSelectedChange={setSelected}
+                    ></Dropdown>
+                </Route>
+        </React.Fragment>
+    );
+        
+};
 
 export default App;
